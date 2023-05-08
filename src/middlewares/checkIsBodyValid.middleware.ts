@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { ZodTypeAny } from "zod";
+import { ZodError, ZodTypeAny } from "zod";
+import { AppError } from "../error";
 
 const checkIsBodyValidMiddleware =
   (schema: ZodTypeAny) => (req: Request, res: Response, next: NextFunction) => {
@@ -7,7 +8,9 @@ const checkIsBodyValidMiddleware =
 
     req.body = validatedBody;
 
-    return next();
+    return next();  
+    
   };
+
 
 export default checkIsBodyValidMiddleware;

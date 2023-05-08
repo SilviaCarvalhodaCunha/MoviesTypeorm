@@ -7,6 +7,7 @@ import {
 import registerMovieServices from "../services/registerMovie.services";
 import deleteMovieByIdServices from "../services/deleteMovieById.services";
 import updatesMovieByIdServices from "../services/updatesMovieById.services";
+import listAllMoviesServices from "../services/listAllMovies.services";
 
 const registerMovieController = async (
   req: Request,
@@ -22,7 +23,16 @@ const listAllMoviesController = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  return res.status(200).json();
+  const { page, perPage, order, sort } = req.query;
+
+  const movies = await listAllMoviesServices(
+    parseInt(page as string),
+    parseInt(perPage as string),
+    order === "asc" || order === "desc" ? order : "asc",
+    sort === "price" || sort === "duration" || sort === "id" ? sort : "id"
+  );
+
+  return res.status(200).json(movies);
 };
 
 const updatesMovieByIdController = async (
@@ -42,6 +52,7 @@ const deleteMovieByIdController = async (
   res: Response
 ): Promise<Response> => {
   const id: number = parseInt(req.params.id);
+
   await deleteMovieByIdServices(id);
 
   return res.status(204).send();

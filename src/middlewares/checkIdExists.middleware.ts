@@ -13,7 +13,7 @@ const checkIdExistsMiddleware = async (
 
   const id: number = parseInt(req.params.id);
 
-  const foundMovie = await movieRepository.findOne({ where: { id: id } });
+  const foundMovie = await movieRepository.findOneBy({id});
 
   if (!foundMovie) {
     throw new AppError("Movie not found", 404);

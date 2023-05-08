@@ -13,11 +13,14 @@ const checkNameExistsMiddleware = async (
 
   const { name } = req.body;
 
-  const foundMovie = await movieRepository.findOne({ where: { name: name } });
-
-  if (foundMovie) {
-    throw new AppError("Movie already exists.", 409);
+  if(name){
+    const foundMovie = await movieRepository.exist({ where: { name: name } });
+  
+    if (foundMovie) {
+      throw new AppError("Movie already exists.", 409);
+    }
   }
+
 
   return next();
 };

@@ -1,6 +1,8 @@
 import { z } from "zod";
 import {
+  moviesReadAllSchema,
   moviesSchema,
+  paginationMovieSchema,
   requestMoviesSchema,
   requestMoviesUpdateSchema,
 } from "../schemas/movies.schemas";
@@ -14,4 +16,15 @@ type TRequestMoviesUpdate = z.infer<typeof requestMoviesUpdateSchema>;
 
 type TMoviesUpdate = DeepPartial<TRequestMovies>;
 
-export { TMovies, TRequestMovies, TRequestMoviesUpdate, TMoviesUpdate };
+type TmoviesReadAll = z.infer<typeof moviesReadAllSchema>;
+
+type TPaginationMovie = z.infer<typeof paginationMovieSchema>;
+
+export {
+  TMovies,
+  TRequestMovies,
+  TRequestMoviesUpdate,
+  TMoviesUpdate,
+  TmoviesReadAll,
+  TPaginationMovie
+};

@@ -6,6 +6,7 @@ import {
 } from "../schemas/movies.schemas";
 import {
   deleteMovieByIdController,
+  listAllMoviesController,
   registerMovieController,
   updatesMovieByIdController,
 } from "../controllers/movies.controllers";
@@ -21,13 +22,13 @@ moviesRoutes.post(
   registerMovieController
 );
 
-moviesRoutes.get("");
+moviesRoutes.get("", listAllMoviesController);
 
 moviesRoutes.patch(
   "/:id",
   checkIsBodyValidMiddlewares(requestMoviesUpdateSchema),
-  checkNameExistsMiddleware,
   checkIdExistsMiddleware,
+  checkNameExistsMiddleware,
   updatesMovieByIdController
 );
 

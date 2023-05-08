@@ -10,7 +10,7 @@ const updatesMovieByIdServices = async (
 ): Promise<TMovies> => {
   const movieRepository: Repository<Movie> = AppDataSource.getRepository(Movie);
 
-  const foundMovie: Movie | null = await movieRepository.findOneBy({ id });
+  const foundMovie: Movie | null = await movieRepository.findOneBy({ id: id });
 
   const movie = movieRepository.create({
     ...foundMovie,
